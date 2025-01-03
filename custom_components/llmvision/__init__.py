@@ -78,7 +78,8 @@ async def async_setup_entry(hass, entry):
     ollama_https = entry.data.get(CONF_OLLAMA_HTTPS)
     custom_openai_endpoint = entry.data.get(CONF_CUSTOM_OPENAI_ENDPOINT)
     custom_openai_api_key = entry.data.get(CONF_CUSTOM_OPENAI_API_KEY)
-    retention_time = entry.data.get(CONF_RETENTION_TIME)
+    retention_time = entry.data.get(CONF_RETENTION_TIME),
+    provider = entry.data.get("provider") 
 
     # Ensure DOMAIN exists in hass.data
     if DOMAIN not in hass.data:
