@@ -327,7 +327,7 @@ class Provider(ABC):
         return error_message
         
 class CustomLocalVision(Provider):
-    def __init__(self, hass, api_key="", endpoint=None):
+    def __init__(self, hass, api_key="",f endpoint=None):
         super().__init__(hass, api_key, endpoint)
         self.default_model = "gpt-4o"
         self.url = "http://192.168.1.133:5002/api/vision/process"
@@ -376,8 +376,6 @@ class CustomLocalVision(Provider):
             "temperature": 0.5
         }
         await self._post(url=self.url, data=data)
-    else:
-        raise ServiceValidationError("empty_api_key")
 
 
 
