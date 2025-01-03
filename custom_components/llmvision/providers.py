@@ -375,7 +375,7 @@ class CustomLocalVision(Provider):
             "max_tokens": 1,
             "temperature": 0.5
         }
-        await self._post(url=self.url, data=data)
+        await self._post(url=self.url, headers= {'Content-type': 'application/json'},data=data)
 
 
 

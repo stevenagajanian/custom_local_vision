@@ -308,7 +308,7 @@ class llmvisionConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 await custom_local.validate()
                 return self.async_create_entry(
                     title="Custom Local Vision",
-                    data={"provider": "Custom Local"}
+                    data={"provider": "CustomLocal"}
                 )
             except ServiceValidationError as e:
                 _LOGGER.error(f"Validation failed: {e}")
