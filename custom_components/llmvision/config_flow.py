@@ -9,6 +9,7 @@ from .providers import (
     Groq,
     LocalAI,
     Ollama,
+    CustomLocalVision
 )
 from .const import (
     DOMAIN,
@@ -52,6 +53,7 @@ class llmvisionConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             "LocalAI": self.async_step_localai,
             "Ollama": self.async_step_ollama,
             "OpenAI": self.async_step_openai,
+            "CustomLocal": self.async_step_custom_local
         }
 
         step_method = provider_steps.get(provider)
@@ -65,7 +67,7 @@ class llmvisionConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         data_schema = vol.Schema({
             vol.Required("provider", default="Event Calendar"): selector({
                 "select": {
-                    "options": ["Anthropic", "Google", "Groq", "LocalAI", "Ollama", "OpenAI", "Custom OpenAI", "Event Calendar"], # Azure removed until fixed
+                    "options": ["Anthropic", "Google", "Groq", "LocalAI", "Ollama", "OpenAI", "Custom OpenAI", "Event Calendar","Custom Local"], # Azure removed until fixed
                     "mode": "dropdown",
                     "sort": False,
                     "custom_value": False
@@ -293,7 +295,33 @@ class llmvisionConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             step_id="groq",
             data_schema=data_schema,
         )
+    async def async_step_custom_local(self, user_input=None):
+        """Handle CustomLocal provider configuration."""
+        # For CustomLocal, we don't need any configuration inputs
+        # since the endpoint is hardcoded in the provider
+        
+        if user_input is not None:
+            # save provider to user_input
+            user_input["provider"] = self.init_info["provider"]
+            try:
+                custom_local = CustomLocalVision(self.hass)
+                await custom_local.validate()
+                return self.async_create_entry(
+                    title="Custom Local Vision",
+                    data={"provider": "CustomLocal"}
+                )
+            except ServiceValidationError as e:
+                _LOGGER.error(f"Validation failed: {e}")
+                return self.async_show_form(
+                    step_id="custom_local",
+                    data_schema=vol.Schema({}),
+                    errors={"base": "handshake_failed"}
+                )
 
+        return self.async_show_form(
+            step_id="custom_local",
+            data_schema=vol.Schema({})
+        )
     async def async_step_custom_openai(self, user_input=None):
         data_schema = vol.Schema({
             vol.Required(CONF_CUSTOM_OPENAI_ENDPOINT): str,
