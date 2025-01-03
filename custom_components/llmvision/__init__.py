@@ -102,7 +102,9 @@ async def async_setup_entry(hass, entry):
         CONF_OLLAMA_HTTPS: ollama_https,
         CONF_CUSTOM_OPENAI_ENDPOINT: custom_openai_endpoint,
         CONF_CUSTOM_OPENAI_API_KEY: custom_openai_api_key,
-        CONF_RETENTION_TIME: retention_time
+        CONF_RETENTION_TIME: retention_time,
+        "provider":provider,
+        "configured": True if provider == "Custom Local" else None
     }
 
     # Filter out None values
