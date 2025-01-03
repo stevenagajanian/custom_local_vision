@@ -86,6 +86,8 @@ class Request:
             return "Ollama"
         elif CONF_OPENAI_API_KEY in entry_data:
             return "OpenAI"
+        elif entry_data.get("provider") == "Custom Local":  # Add this condition
+            return "Custom Local"
 
         return None
 
@@ -190,7 +192,8 @@ class Request:
                 CONF_CUSTOM_OPENAI_ENDPOINT) + "/v1/chat/completions"
             provider_instance = OpenAI(
                 self.hass, api_key=api_key, endpoint=endpoint)
-
+        elif provider == 'Custom Local':
+            provider_instance = CustomLocalVision(self.hass)
         else:
             raise ServiceValidationError("invalid_provider")
 
@@ -210,7 +213,7 @@ class Request:
         self.base64_images.append(base64_image)
         self.filenames.append(filename)
 
-    async def _resolve_error(self, response, provider):
+async def _resolve_error(self, response, provider) -> str:
         """Translate response status to error message"""
         import json
         full_response_text = await response.text()
@@ -223,11 +226,17 @@ class Request:
                 error_message = f"{error_info.get('type', 'Unknown error')}: {error_info.get('message', 'Unknown error')}"
             elif provider == 'ollama':
                 error_message = response_json.get('error', 'Unknown error')
+            elif provider == 'customlocalvision':
+                error_info = response_json.get('error', {})
+                if isinstance(error_info, dict):
+                    error_message = error_info.get('message', 'Unknown error')
+                else:
+                    error_message = str(error_info)
             else:
                 error_info = response_json.get('error', {})
-                error_message = error_info.get('message', 'Unknown error')
+                error_message = error_info.get('message', 'Unknown error') if isinstance(error_info, dict) else str(error_info)
         except json.JSONDecodeError:
-            error_message = 'Unknown error'
+            error_message = 'Failed to parse error response'
 
         return error_message
 
