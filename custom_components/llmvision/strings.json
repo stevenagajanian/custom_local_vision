@@ -69,6 +69,11 @@
                     "custom_openai_api_key": "Your API key"
                 }
             },
+            "custom_local": {
+                "title": "Configure Custom Local Vision",
+                "description": "Connect to your local custom vision service running at http://192.168.1.133:5002/api/vision/process",
+                "data": {}
+            },
             "semantic_index": {
                 "title": "Remember Events",
                 "description": "Set how many days events will be remembered for. Events will automatically be deleted after this time. Events are stored locally and can be deleted manually in the calendar view. (0 disables auto delete)",
@@ -80,10 +85,12 @@
         "error": {
             "handshake_failed": "Could not connect to the server. Check you API key or IP and port",
             "empty_api_key": "Invalid API key",
-            "invalid_provider": "Invalid provider selected"
+            "invalid_provider": "Invalid provider selected",
+            "connection_error": "Could not connect to Custom Local Vision service"
         },
         "abort": {
-            "unknown_provider": "Unknown provider"
+            "unknown_provider": "Unknown provider",
+            "already_configured": "This provider is already configured"
         }
     }
 }
