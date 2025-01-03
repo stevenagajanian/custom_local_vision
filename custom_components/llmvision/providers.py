@@ -70,8 +70,8 @@ class Request:
         if not entry_data:
             return None
 
-        # Direct return for Custom Local provider
-        if entry_data.get("provider") == "Custom Local" and entry_data.get("configured", False):
+        # Check for Custom Local first
+        if entry_data.get("provider") == "Custom Local":
             return "Custom Local"
             
         # Handle other providers
@@ -91,6 +91,8 @@ class Request:
             return "Ollama"
         elif CONF_OPENAI_API_KEY in entry_data:
             return "OpenAI"
+        elif CONF_CUSTOM_LOCAL in entry_data:  # Fallback check for Custom Local
+            return "Custom Local"
 
         return None
 

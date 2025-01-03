@@ -2,79 +2,93 @@
     "config": {
         "step": {
             "user": {
-                "title": "LLM Visio Konfiguration",
-                "description": "Wähle was du konfigurieren möchtest."
+                "title": "LLM Vision Setup",
+                "description": "Select what you want to set up"
             },
             "localai": {
-                "title": "LocalAI konfigurieren",
-                "description": "Gib die IP-Adresse und den Port deines LocalAI-Servers an.",
+                "title": "Connect to your LocalAI server",
+                "description": "Provide the IP address and port of your LocalAI server.",
                 "data": {
-                    "localai_ip": "IP-Adresse",
-                    "localai_port": "Port"
+                    "localai_ip": "IP address",
+                    "localai_port": "Port",
+                    "localai_https": "HTTPS"
                 }
             },
             "ollama": {
-                "title": "Ollama konfigurieren",
-                "description": "Gib die IP-Adresse und den Port deines Ollama-Servers an.",
+                "title": "Configure Ollama",
+                "description": "Provide the IP address and port of your Ollama server.",
                 "data": {
-                    "localai_ip": "IP-Addresse",
-                    "localai_port": "Port"
+                    "ollama_ip": "IP address",
+                    "ollama_port": "Port",
+                    "ollama_https": "HTTPS"
                 }
             },
             "openai": {
-                "title": "OpenAI konfigurieren",
-                "description": "Gib einen gültigen OpenAI API-key ein.",
+                "title": "Configure OpenAI",
+                "description": "Provide a valid OpenAI API key.",
                 "data": {
-                    "api_key": "Dein API-key"
+                    "openai_api_key": "Your API key"
                 }
             },
             "azure": {
-                "title": "Azure konfigurieren",
-                "description": "Gib einen gültigen Azure API-key, die Base URL, den Namen des Deployments und die API-Version an.\nDie Base URL muss dieses Format haben: `https://domain.openai.azure.com/` (einschliesslich des abschliessenden '/')",
+                "title": "Configure Azure",
+                "description": "Provide a valid Azure API key, base URL, deployment and API version.\nThe Base URL must be in the format `https://domain.openai.azure.com/` including the trailing slash.",
                 "data": {
-                    "azure_api_key": "Dein API key",
+                    "azure_api_key": "Your API key",
                     "azure_base_url": "Base URL",
                     "azure_deployment": "Deployment",
                     "azure_version": "API Version"
                 }
             },
             "anthropic": {
-                "title": "Anthropic Claude konfigurieren",
-                "description": "Gib einen gültigen Anthropic API-key ein.",
+                "title": "Configure Anthropic Claude",
+                "description": "Provide a valid Anthropic API key.",
                 "data": {
-                    "api_key": "Dein API-key"
+                    "anthropic_api_key": "Your API key"
                 }
             },
             "google": {
-                "title": "Google Gemini konfigurieren",
-                "description": "Gib einen gültigen Google Gemini API-key ein.",
+                "title": "Configure Google Gemini",
+                "description": "Provide a valid Google Gemini API key.",
                 "data": {
-                    "api_key": "Dein API-key"
+                    "google_api_key": "Your API key"
+                }
+            },
+            "groq": {
+                "title": "Configure Groq",
+                "description": "Provide a valid Groq API key.",
+                "data": {
+                    "groq_api_key": "Your API key"
                 }
             },
             "custom_openai": {
-                "title": "OpenAI-kompatiblen Provider konfigurieren",
-                "description": "**Wichtig**: Funktioniert nur mit OpenAI API kompatiblen APIs. 'Custom Endpoint' muss das folgende Format haben: `http(s)://baseURL(:port)/some/endpoint`",
+                "title": "Configure Custom OpenAI provider",
+                "description": "**Important**: Only works if the API is compatible with OpenAI's API. If the API doesn't require an API key, leave it empty. The endpoint must have the following format: `http(s)://baseURL(:port)/some/endpoint`",
                 "data": {
                     "custom_openai_endpoint": "Custom Endpoint",
-                    "custom_openai_api_key": "Dein API-key"
+                    "custom_openai_api_key": "Your API key"
                 }
             },
+            "custom_local": {
+                "title": "Configure Custom Local Vision",
+                "description": "Connect to your local vision processing server. The endpoint is pre-configured to http://192.168.1.133:5002/api/vision/process.",
+                "data": {}
+            },
             "semantic_index": {
-                "title": "Events erinnern",
-                "description": "Konfiguriere wie viele Tage Events gespeichert werden, danach werden sie automatisch gelöscht. Events werden nur lokal gespeichert und können in der Kalenderansicht gelöscht werden. (0 deaktiviert auto delete)",
+                "title": "Remember Events",
+                "description": "Set how many days events will be remembered for. Events will automatically be deleted after this time. Events are stored locally and can be deleted manually in the calendar view. (0 disables auto delete)",
                 "data": {
-                    "retention_time": "Automatisch löschen nach (in Tagen)"
+                    "retention_time": "Auto delete events after (days)"
                 }
             }
         },
         "error": {
-            "handshake_failed": "Verbindung zum Server konnte nicht hergestellt werden. Überprüfe deinen API-key oder IP und Port",
-            "empty_api_key": "Ungültiger API-key",
-            "invalid_provider": "Ungültiger Provider ausgewählt"
+            "handshake_failed": "Could not connect to the server. Check you API key or IP and port",
+            "empty_api_key": "Invalid API key",
+            "invalid_provider": "Invalid provider selected"
         },
         "abort": {
-            "unknown_provider": "Unbekannter Anbieter"
+            "unknown_provider": "Unknown provider"
         }
     }
 }

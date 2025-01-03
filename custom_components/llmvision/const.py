@@ -1,8 +1,6 @@
 """ Constants for llmvision component"""
-
 # Global constants
 DOMAIN = "llmvision"
-
 # Configuration values from setup
 CONF_OPENAI_API_KEY = 'openai_api_key'
 CONF_AZURE_API_KEY = 'azure_api_key'
@@ -20,6 +18,7 @@ CONF_OLLAMA_PORT = 'ollama_port'
 CONF_OLLAMA_HTTPS = 'ollama_https'
 CONF_CUSTOM_OPENAI_ENDPOINT = 'custom_openai_endpoint'
 CONF_CUSTOM_OPENAI_API_KEY = 'custom_openai_api_key'
+CONF_CUSTOM_LOCAL = 'custom_local'  # Add this
 CONF_RETENTION_TIME = 'retention_time'
 
 # service call constants
@@ -63,3 +62,4 @@ ENDPOINT_GROQ = "https://api.groq.com/openai/v1/chat/completions"
 ENDPOINT_LOCALAI = "{protocol}://{ip_address}:{port}/v1/chat/completions"
 ENDPOINT_OLLAMA = "{protocol}://{ip_address}:{port}/api/chat"
 ENDPOINT_AZURE = "{base_url}openai/deployments/{deployment}/chat/completions?api-version={api_version}"
+ENDPOINT_CUSTOM_LOCAL = "http://192.168.1.133:5002/api/vision/process"  # Add this
