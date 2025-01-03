@@ -297,18 +297,18 @@ class llmvisionConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         )
     async def async_step_custom_local(self, user_input=None):
         """Handle CustomLocal provider configuration."""
-        # For CustomLocal, we don't need any configuration inputs
-        # since the endpoint is hardcoded in the provider
-        
         if user_input is not None:
-            # save provider to user_input
-            user_input["provider"] = self.init_info["provider"]
             try:
                 custom_local = CustomLocalVision(self.hass)
                 await custom_local.validate()
+                
+                # Create entry with provider info
                 return self.async_create_entry(
                     title="Custom Local Vision",
-                    data={"provider": "Custom Local"}
+                    data={
+                        "provider": "Custom Local",
+                        "configured": True  # Add a flag to identify this provider
+                    }
                 )
             except ServiceValidationError as e:
                 _LOGGER.error(f"Validation failed: {e}")
@@ -322,6 +322,7 @@ class llmvisionConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             step_id="custom_local",
             data_schema=vol.Schema({})
         )
+
     async def async_step_custom_openai(self, user_input=None):
         data_schema = vol.Schema({
             vol.Required(CONF_CUSTOM_OPENAI_ENDPOINT): str,

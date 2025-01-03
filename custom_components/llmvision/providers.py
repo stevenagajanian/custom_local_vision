@@ -70,6 +70,11 @@ class Request:
         if not entry_data:
             return None
 
+        # Direct return for Custom Local provider
+        if entry_data.get("provider") == "Custom Local" and entry_data.get("configured", False):
+            return "Custom Local"
+            
+        # Handle other providers
         if CONF_ANTHROPIC_API_KEY in entry_data:
             return "Anthropic"
         elif CONF_AZURE_API_KEY in entry_data:
@@ -86,8 +91,6 @@ class Request:
             return "Ollama"
         elif CONF_OPENAI_API_KEY in entry_data:
             return "OpenAI"
-        elif entry_data.get("provider") == "Custom Local":  # Add this condition
-            return "Custom Local"
 
         return None
 
