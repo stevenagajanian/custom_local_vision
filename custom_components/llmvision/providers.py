@@ -348,7 +348,7 @@ class CustomLocalVision(Provider):
 
     async def _make_request(self, data) -> str:
         # Hardcode or build endpoint from config
-        response_data = await self._post(url=self.url, data=data)
+        response_data = await self._post(url=self.url, headers={'Content-type': 'application/json'}, data=data)
         # Suppose your Flask returns {"response": {...}}:
         # parse however you need to get final text
         openai_response = response_data.get("response", {})
