@@ -53,7 +53,7 @@ class llmvisionConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             "LocalAI": self.async_step_localai,
             "Ollama": self.async_step_ollama,
             "OpenAI": self.async_step_openai,
-            "CustomLocal": self.async_step_custom_local
+            "Custom Local": self.async_step_custom_local
         }
 
         step_method = provider_steps.get(provider)
@@ -308,7 +308,7 @@ class llmvisionConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 await custom_local.validate()
                 return self.async_create_entry(
                     title="Custom Local Vision",
-                    data={"provider": "CustomLocal"}
+                    data={"provider": "Custom Local"}
                 )
             except ServiceValidationError as e:
                 _LOGGER.error(f"Validation failed: {e}")
